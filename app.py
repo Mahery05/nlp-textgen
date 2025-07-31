@@ -28,10 +28,10 @@ def generate_text(start_seq, length=300):
     for _ in range(length):
         # Prédiction du caractère suivant
         out, hidden = model(input_seq[:, -1].unsqueeze(1), hidden)
-        prob = torch.softmax(out[:, -1], dim=-1)  # Distribution de probas
-        char_idx = torch.multinomial(prob, num_samples=1).item()  # Échantillonnage
-        generated += itos[char_idx]  # Ajout du caractère généré
-        input_seq = torch.cat([input_seq, torch.tensor([[char_idx]])], dim=1)  # Mise à jour de la séquence
+        prob = torch.softmax(out[:, -1], dim=-1)
+        char_idx = torch.multinomial(prob, num_samples=1).item()
+        generated += itos[char_idx]
+        input_seq = torch.cat([input_seq, torch.tensor([[char_idx]])], dim=1)
     return generated
 
 # Route principale de l'application web
